@@ -3,8 +3,10 @@
 #include <AutoHotInterception>
 
 global AHI := new AutoHotInterception()
-global KB := AHI.GetKeyboardId(0x0000, 0x0000)
-global MS := AHI.GetMouseId(0x22d4, 0x130c)
+global KB := AHI.GetKeyboardIDFromHandle("ACPI\VEN_MSFT&DEV_0001")
+global MS := AHI.GetMouseIDFromHandle("HID\VID_22D4&PID_130C&REV_0136&MI_00")
+global PAD := AHI.GetMouseIDFromHandle("ACPI\VEN_SYN&DEV_1214")
+
 global CM := AHI.CreateContextManager(KB)
 
 
