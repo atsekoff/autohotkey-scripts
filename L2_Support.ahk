@@ -3,9 +3,9 @@
 #include <AutoHotInterception>
 
 global AHI := new AutoHotInterception()
-global KB := AHI.GetKeyboardIDFromHandle("ACPI\VEN_MSFT&DEV_0001")
+global KB := AHI.GetKeyboardIDFromHandle(MBEAST_KB_ID)
 ;global MS := AHI.GetMouseIDFromHandle("HID\VID_22D4&PID_130C&REV_0136&=MI_00")
-global PAD := AHI.GetMouseIDFromHandle("ACPI\VEN_SYN&DEV_1214")
+global PAD := AHI.GetMouseIDFromHandle(MBEAST_MS_ID)
 
 global CM := AHI.CreateContextManager(KB)
 

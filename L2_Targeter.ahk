@@ -7,8 +7,8 @@
 #include Lib\HWIDs.ahk
 
 global AHI := new AutoHotInterception()
-global KB := AHI.GetKeyboardIDFromHandle(BATMAN_KB_ID)
-global MS := AHI.GetMouseIDFromHandle(BATMAN_MS_ID)
+global KB := AHI.GetKeyboardIDFromHandle(MBEAST_KB_ID)
+global MS := AHI.GetMouseIDFromHandle(MBEAST_KB_ID)
 global CM := AHI.CreateContextManager(KB)
 SendKey(key)
 {
