@@ -88,7 +88,7 @@ BGR(hexBGR)
 *~CapsLock::
 	if(GetKeyState("CapsLock", "T"))
 	{
-		SetTimer, Sub1, 500
+		SetTimer, Loop120, 125000
 	}
 return
 
@@ -125,6 +125,16 @@ Sub2:
 		SetTimer, Sub2, Off
 	}
 	SendKey("=")
+	return
+}
+
+Loop120:
+{
+	if(not GetKeyState("CapsLock", "T"))
+	{
+		SetTimer, Sub2, Off
+	}
+	SendKey("-")
 	return
 }
 
