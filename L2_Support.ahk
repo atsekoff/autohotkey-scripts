@@ -4,7 +4,7 @@
 
 global AHI := new AutoHotInterception()
 global KB := AHI.GetKeyboardIDFromHandle("ACPI\VEN_MSFT&DEV_0001")
-global MS := AHI.GetMouseIDFromHandle("HID\VID_22D4&PID_130C&REV_0136&MI_00")
+;global MS := AHI.GetMouseIDFromHandle("HID\VID_22D4&PID_130C&REV_0136&=MI_00")
 global PAD := AHI.GetMouseIDFromHandle("ACPI\VEN_SYN&DEV_1214")
 
 global CM := AHI.CreateContextManager(KB)
@@ -62,10 +62,11 @@ CheckHealth()
 	ToolTip
 	Loop, 8
 	{
-		if(GetRed(pt[A_Index].x, pt[A_Index].y) < hpThresh)
+		red := GetRed(pt[A_Index].x, pt[A_Index].y)
+		if(red < hpThresh)
 		{
-			keyName = F%A_Index%
-			ToolTip,  Healing %A_Index%, 0, 0
+			keyName = Numpad%A_Index%
+			ToolTip,  Healing %A_Index% Red = %red%, 0, 0
 			SendKey(keyName)
 			Break
 		}
@@ -88,11 +89,8 @@ BGR(hexBGR)
 	if(GetKeyState("CapsLock", "T"))
 	{
 		SetTimer, Sub1, 500
-		SetTimer, Sub2, 60000
 	}
 return
-
-
 
 ^~Numpad0::
 	MouseGetPos,x,y
