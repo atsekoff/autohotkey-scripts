@@ -4,10 +4,11 @@
 
 #include <AutoHotInterception>
 #Include Lib\Utils.ahk
+#include Lib\HWIDs.ahk
 
 global AHI := new AutoHotInterception()
-global KB := AHI.GetKeyboardIDFromHandle("HID\VID_2516&PID_0011&REV_0109&MI_00")
-global MS := AHI.GetMouseIDFromHandle("HID\VID_1AF3&PID_0001&REV_0001")
+global KB := AHI.GetKeyboardIDFromHandle(BATMAN_KB_ID)
+global MS := AHI.GetMouseIDFromHandle(BATMAN_MS_ID)
 global CM := AHI.CreateContextManager(KB)
 SendKey(key)
 {
