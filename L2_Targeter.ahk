@@ -8,7 +8,7 @@
 
 global AHI := new AutoHotInterception()
 global KB := AHI.GetKeyboardIDFromHandle(MBEAST_KB_ID)
-global MS := AHI.GetMouseIDFromHandle(MBEAST_KB_ID)
+;global MS := AHI.GetMouseIDFromHandle(MBEAST_MS_ID)
 global CM := AHI.CreateContextManager(KB)
 SendKey(key)
 {
@@ -89,40 +89,40 @@ Farm:
 	if(IsTargetAlive()==1)
 	{
 		shouldPick:=True
-		ToolTip, attacking
+		;ToolTip, attacking
 		SendKey(attackButton)
 		Sleep, 100
-		SendKey("F9")
-		Sleep, 100
 		SendKey("4")
+		Sleep, 100
+		SendKey("F9")
 		Sleep, 100
 	}
 	else if(IsTargetAlive()==0)
 	{
 		if(shouldPick)
 		{
-			Loop,25
+			Loop,10
 			{
-				ToolTip, picking
+				;ToolTip, picking
 				SendKey(pickButton)
-				Sleep, 100
+				Sleep, 200
 			}
 			shouldPick:=false
 		}
 
-		ToolTip, next targeting
+		;ToolTip, next targeting
 		SendKey(nextTargetButton)
 		Sleep, 100
 	}
 	else
 	{
-		ToolTip, targeting
+		;ToolTip, targeting
 		SendKey(targetButton)
 		Sleep, 100
 	}
 
 	SetTimer, , -100
-	ToolTip
+	;ToolTip
 	return
 }
 
