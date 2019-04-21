@@ -1,10 +1,11 @@
 ﻿#SingleInstance force
-#Persistent
+;#Persistent
 #MaxThreadsPerHotkey, 2
 
 #include <AutoHotInterception>
 #Include Lib\Utils.ahk
 #include Lib\HWIDs.ahk
+#include Lib\L2Target.ahk
 
 global AHI := new AutoHotInterception()
 global KB := AHI.GetKeyboardIDFromHandle(BATMAN_KB_ID)
@@ -27,38 +28,14 @@ global attackButton:="1"
 global pickButton:="F4"
 global nextTargetButton:="2"
 global targetButton:="-"
+
+global target := new L2Target
 ;;;;;;;;;;;;;;;;;;;;;;;;; FUNCTIONS
 
-
-SetTargetHealthBarPos()
+Chill()
 {
-	MouseGetPos,mouseX,mouseY
-	PixelSearch, cX, cY, mouseX-5, mouseY-5, mouseX+5, mouseY+5, healthyColor.hex, 1, Fast
-	if(ErrorLevel == 0)
-	{
-		targetHealthPos:= new Vec2(cX,cY)
-		ToolTip,% "Target health bar set at [" targetHealthPos.x ", " targetHealthPos.y "]"
-	}
-	else{
-		ToolTip,% "Could not find a health bar near [" mouseX ", " mouseY "]"
-	}
-	Sleep 1000
-	ToolTip
-}
-
-IsTargetAlive()
-{
-	c := GetPixelRGB(targetHealthPos.x, targetHealthPos.y)
-	if(c.Equals(healthyColor))
-	{
-		return 1
-	}
-	else if(c.Equals(unhealthyColor,5))
-	{
-		return 0
-	}
-	
-	return -1
+	Sleep 10
+	return
 }
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -69,12 +46,17 @@ IsTargetAlive()
 	if(GetKeyState("CapsLock", "T"))
 	{
 		global shouldPick:=False
-		Gosub, Farm
+		Thread, Interrupt, 0
+		SetTimer, Farm, -1
+	}
+	else{
+		SetTimer, Farm, Delete
+		ToolTip
 	}
 return
 
 ^.::
-	SetTargetHealthBarPos()
+	target.SetTargetHealthBarPos()
 return
 
 
@@ -82,47 +64,49 @@ return
 
 Farm:
 {
-	if(not GetKeyState("CapsLock", "T"))
-	{
-		return
-	}
-	if(IsTargetAlive()==1)
+	alive:= target.IsAlive()
+	if(alive==1)
 	{
 		shouldPick:=True
-		ToolTip, attacking
-		SendKey(attackButton)
-		Sleep, 100
+		ToolTip, attacking, 500, 1000
 		SendKey("F9")
-		Sleep, 100
+		Chill()
 		SendKey("4")
-		Sleep, 100
+		Chill()
+		SendKey(attackButton)
+		Chill()
 	}
-	else if(IsTargetAlive()==0)
+	else if(alive==0)
 	{
+		ToolTip, nexttargeting, 500, 1000
+		SendKey(nextTargetButton)
+		Chill()
+
 		if(shouldPick)
 		{
-			Loop,25
+			Loop,10
 			{
-				ToolTip, picking
+				ToolTip, picking, 500, 1000
 				SendKey(pickButton)
-				Sleep, 100
+				Sleep 200
 			}
 			shouldPick:=false
 		}
-
-		ToolTip, next targeting
-		SendKey(nextTargetButton)
-		Sleep, 100
 	}
 	else
 	{
-		ToolTip, targeting
+		ToolTip, targeting, 500, 1000
 		SendKey(targetButton)
-		Sleep, 100
+		Chill()
 	}
 
-	SetTimer, , -100
-	ToolTip
+	if(GetKeyState("CapsLock", "T"))
+	{
+		SetTimer, Farm, -500
+	}
+	else{
+		ToolTip
+	}
 	return
 }
 

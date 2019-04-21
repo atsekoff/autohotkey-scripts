@@ -92,7 +92,7 @@ return
 
 
 
-^~Numpad0::
+^.Numpad0::
 	MouseGetPos,x,y
 	Loop, 8
 	{
