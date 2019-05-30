@@ -1,6 +1,7 @@
 ﻿#SingleInstance force
 #Persistent
 #include <AutoHotInterception>
+#include Lib\Utils.ahk
 
 global AHI := new AutoHotInterception()
 global KB := AHI.GetKeyboardId(0x2516, 0x0011)
@@ -10,6 +11,7 @@ global CM := AHI.CreateContextManager(KB)
 
 global hpThresh:= 70
 global pt := []
+global myHealth := 
 global barGapY:= 46
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; CLASSES
 
@@ -55,7 +57,7 @@ GetRed(x,y)
 	return BGR(c).r
 }
 
-CheckHealth()
+CheckPartyHealth()
 {
 	ToolTip
 	Loop, 8
@@ -64,13 +66,24 @@ CheckHealth()
 		{
 			keyName = F%A_Index%
 			ToolTip,  Healing %A_Index%, 0, 0
+			SendKey("F11")
 			SendKey(keyName)
 			Break
 		}
 	}
+
 	return
 }
 
+CheckSelfHealth()
+{
+	if(GetRed(myHealth.x,myHealth.y)< hpThresh)
+	{
+		ToolTip, Self heal
+		SendKey("F9")
+	}
+	return
+}
 
 BGR(hexBGR) 
 {
@@ -85,14 +98,13 @@ BGR(hexBGR)
 *~CapsLock::
 	if(GetKeyState("CapsLock", "T"))
 	{
-		SetTimer, Sub1, 500
-		SetTimer, Sub2, 60000
+		SetTimer, Sub1, -1
+		;SetTimer, Sub2, 60000
 	}
 return
 
 
-
-^.Numpad0::
+^.::
 	MouseGetPos,x,y
 	Loop, 8
 	{
@@ -105,6 +117,11 @@ return
 	ToolTip
 return
 
+^,::
+	MouseGetPos, x,y
+	myHealth:=new Vec2(x,y)
+return
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; SUBS
 
@@ -114,7 +131,13 @@ Sub1:
 	{
 		SetTimer, Sub1, Off
 	}
-	CheckHealth()
+	CheckSelfHealth()
+	CheckPartyHealth()
+	
+	if(GetKeyState("CapsLock", "T"))
+	{
+		SetTimer,, -1000
+	}
 	return
 }
 

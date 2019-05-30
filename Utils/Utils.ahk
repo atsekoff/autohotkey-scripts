@@ -1,4 +1,10 @@
-﻿
+﻿global KEY_ATTACK:="F1"
+global KEY_NEXT:="F2"
+global KEY_TARGET:="F3"
+global KEY_PICK:="F4"
+global KEY_SKILL:="F5"
+global KEY_BUFF:="F6"
+
 class RGB
 {
 	b:=0
