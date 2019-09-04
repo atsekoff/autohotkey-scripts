@@ -38,7 +38,7 @@ while(GetKeyState("ScrollLock", "T"))
 	CheckVolume(threshold)
 	Send {Alt Down}z{Alt Up}
 	Sleep 300
-	SearchBob(c, 10)
+	SearchBob(c, 20)
 	Sleep 300
 	Send {Alt Down}z{Alt Up}
 	Send {Shift Down}{RButton}{Shift Up}
