@@ -29,26 +29,29 @@ CheckVolume(15)
 ToolTip, DONE, 0,0
 return
 
-
 ~ScrollLock::
-while(GetKeyState("ScrollLock", "T"))
-{
-	Send 0
-	Sleep 2000
-	CheckVolume(threshold)
-	Send {Alt Down}z{Alt Up}
-	Sleep 300
-	SearchBob(c, 20)
-	Sleep 300
-	Send {Alt Down}z{Alt Up}
-	Send {Shift Down}{RButton}{Shift Up}
-	Sleep 1000
-}
-
-ToolTip
+	Fish()
 return
 
-
+Fish()
+{
+	while(GetKeyState("ScrollLock", "T"))
+	{
+		Send 0
+		Sleep 2000
+		CheckVolume(threshold)
+		Send {Alt Down}z{Alt Up}
+		Sleep 300
+		SearchBob(c, 20)
+		Sleep 300
+		Send {Alt Down}z{Alt Up}
+		;Send {Shift Down}{RButton}{Shift Up}
+		Send {RButton}
+		Sleep 1000
+	}
+	
+	ToolTip
+}
 
 ; search the screen for that pixel color
 SearchBob(color, delta)

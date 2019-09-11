@@ -12,7 +12,7 @@ MsgBox, Toggle On/Off with ScrollLock
 
 *~ScrollLock::
 	dcCount := 0
-	SetTimer, AutoConnect, 1000
+	SetTimer, AutoConnect, 5000
 	ToolTip Scanning for EnterWorld...,0,0
 return
 
