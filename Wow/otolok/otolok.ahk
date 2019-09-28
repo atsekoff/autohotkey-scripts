@@ -35,9 +35,10 @@ AutoConnect:
 	{
 		dcCount := dcCount + 1
 		ToolTip #%dcCount% Entered world at %A_Hour%:%A_Min%
-		Click, %FoundX%, %FoundY%
-		Sleep 50
-		MouseMove, 900, 500
+		;Click, %FoundX%, %FoundY%
+		;Sleep 50
+		;MouseMove, 900, 500
+		Send {Enter}
 	}
 	
 Return

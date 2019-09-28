@@ -29,14 +29,16 @@ CheckVolume(15)
 ToolTip, DONE, 0,0
 return
 
-~ScrollLock::
+~NumLock::
 	Fish()
 return
 
 Fish()
 {
-	while(GetKeyState("ScrollLock", "T"))
+	while(GetKeyState("NumLock", "T"))
 	{
+		Send i
+		Sleep 500
 		Send 0
 		Sleep 2000
 		CheckVolume(threshold)
@@ -83,7 +85,7 @@ CheckVolume(thresh)
 	;  period and made available during the subsequent device period."
 	VA_GetDevicePeriod("capture", devicePeriod)
 
-	While(GetKeyState("ScrollLock", "T"))
+	While(GetKeyState("NumLock", "T"))
 	{
 		elapsedTime := A_TickCount - startTime
 
