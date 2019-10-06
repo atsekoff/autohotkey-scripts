@@ -39,6 +39,8 @@ Fish()
 	{
 		Send i
 		Sleep 500
+		Send 9
+		Sleep 100
 		Send 0
 		Sleep 2000
 		CheckVolume(threshold)
