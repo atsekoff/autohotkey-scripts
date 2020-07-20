@@ -1,9 +1,18 @@
-﻿#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
-; #Warn  ; Enable warnings to assist with detecting common errors.
-SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
-SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
+﻿global wowid
+
+WinGet, wowid, List, ahk_exe wow.exe
 
 
+SendToAll(Key)
+{
+	loop, %wowid%
+	{	
+		id := wowid%A_Index%
+		ControlSend,, %Key%, ahk_id %id%
+	}
+
+	Return
+}
 
 ~CapsLock::
 	if(GetKeyState("CapsLock", "T"))
@@ -26,49 +35,45 @@ Run:
 	ToolTip StarTED
 	Sleep 500
 	
-	Send {F1}
+	SendToAll("{F1}")
 	Sleep 1000
-	Send {Alt Down}{Tab}{Alt Up}
+	SendToAll("{F1}")
 	Sleep 1000
-	Send {F1}
+	SendToAll("{F5}")
 	Sleep 1000
-	Send {F2}
-	Sleep 1000
-	Send {Alt Down}{Tab}{Alt Up}
+	SendToAll("{F5}")
 	Sleep 1000
 	
-	Send {F5}
-	Sleep 100
 	Send {A Down}
 	Loop, 5
 	{
 		Send \;
-		Sleep 600
+		Sleep 300
 	}
 	Send {A Up}
 	Sleep 100
+	
 	Send {D Down}
 	Loop, 5
 	{
 		Send \;
-		Sleep 600
+		Sleep 300
 	}
 	Send {D Up}
 	Sleep 100
+	
 	Send {F4}
 	Sleep 1000
 	Send {F2}
 	Sleep 1000
 	
-	Send {F1}
+	SendToAll("{F1}")
 	Sleep 1000
-	Send {Alt Down}{Tab}{Alt Up}
+	SendToAll("{F1}")
 	Sleep 1000
-	Send {F1}
+	SendToAll("{F5}")
 	Sleep 1000
-	Send {F2}
-	Sleep 1000
-	Send {Alt Down}{Tab}{Alt Up}
+	SendToAll("{F5}")
 	Sleep 1000
 	
 	Send {F3}
