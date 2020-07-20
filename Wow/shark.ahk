@@ -10,6 +10,11 @@ global c:= 0
 global threshold:=20
 
 
+
+
+
+
+
 ; set the color to search for
 ^i::  ; Control+Alt+Z hotkey.
 MouseGetPos, MouseX, MouseY
