@@ -1,0 +1,166 @@
+
+AzeritePowerWeightsDB = {
+	["customScales"] = {
+	},
+	["dbVersion"] = 3,
+	["char"] = {
+		["Draenor"] = {
+			["Orcbestmmo"] = {
+				["specScales"] = {
+					[255] = {
+						["scaleName"] = "Default",
+						["scaleID"] = "D/3/3/Default",
+					},
+					[254] = {
+						["scaleName"] = "Default",
+						["scaleID"] = "D/3/2/Default",
+					},
+					[253] = {
+						["scaleName"] = "Default",
+						["scaleID"] = "D/3/1/Default",
+					},
+				},
+				["addPrimaryStatToScore"] = false,
+				["showTooltipLegend"] = true,
+				["zonePowers"] = true,
+				["pvpPowers"] = false,
+				["addILvlToScore"] = false,
+				["relativeScore"] = false,
+				["rolePowersNoOffRolePowers"] = false,
+				["importingCanUpdate"] = true,
+				["tooltipScales"] = {
+				},
+				["preferBiSMarjor"] = true,
+				["debug"] = false,
+				["rolePowers"] = true,
+				["defensivePowers"] = true,
+				["enableTraits"] = true,
+				["scaleByAzeriteEmpowered"] = false,
+				["onlyOwnClassCustoms"] = false,
+				["outlineScores"] = true,
+				["professionPowers"] = false,
+				["showOnlyUpgrades"] = false,
+				["onlyOwnClassDefaults"] = true,
+				["enableEssences"] = true,
+			},
+		},
+		["Stormscale"] = {
+			["Wowkiller"] = {
+				["specScales"] = {
+					[64] = {
+						["scaleName"] = "Default",
+						["scaleID"] = "D/8/3/Default",
+					},
+					[63] = {
+						["scaleName"] = "Default",
+						["scaleID"] = "D/8/2/Default",
+					},
+					[62] = {
+						["scaleName"] = "Default",
+						["scaleID"] = "D/8/1/Default",
+					},
+				},
+				["addPrimaryStatToScore"] = false,
+				["showTooltipLegend"] = true,
+				["zonePowers"] = true,
+				["pvpPowers"] = false,
+				["addILvlToScore"] = false,
+				["relativeScore"] = false,
+				["rolePowersNoOffRolePowers"] = false,
+				["importingCanUpdate"] = true,
+				["tooltipScales"] = {
+				},
+				["preferBiSMarjor"] = true,
+				["debug"] = false,
+				["rolePowers"] = true,
+				["defensivePowers"] = true,
+				["enableTraits"] = true,
+				["scaleByAzeriteEmpowered"] = false,
+				["onlyOwnClassCustoms"] = false,
+				["outlineScores"] = true,
+				["professionPowers"] = false,
+				["showOnlyUpgrades"] = false,
+				["onlyOwnClassDefaults"] = true,
+				["enableEssences"] = true,
+			},
+		},
+		["Ravencrest"] = {
+			["Pumple"] = {
+				["specScales"] = {
+					[255] = {
+						["scaleName"] = "Default",
+						["scaleID"] = "D/3/3/Default",
+					},
+					[254] = {
+						["scaleName"] = "Default",
+						["scaleID"] = "D/3/2/Default",
+					},
+					[253] = {
+						["scaleName"] = "Default",
+						["scaleID"] = "D/3/1/Default",
+					},
+				},
+				["addPrimaryStatToScore"] = false,
+				["showTooltipLegend"] = true,
+				["zonePowers"] = true,
+				["pvpPowers"] = false,
+				["addILvlToScore"] = false,
+				["relativeScore"] = false,
+				["rolePowersNoOffRolePowers"] = false,
+				["importingCanUpdate"] = true,
+				["tooltipScales"] = {
+				},
+				["preferBiSMarjor"] = true,
+				["debug"] = false,
+				["rolePowers"] = true,
+				["defensivePowers"] = true,
+				["enableTraits"] = true,
+				["scaleByAzeriteEmpowered"] = false,
+				["enableEssences"] = true,
+				["outlineScores"] = true,
+				["professionPowers"] = false,
+				["showOnlyUpgrades"] = false,
+				["onlyOwnClassCustoms"] = false,
+				["onlyOwnClassDefaults"] = true,
+			},
+			["Brumber"] = {
+				["specScales"] = {
+					[73] = {
+						["scaleName"] = "Defensive",
+						["scaleID"] = "D/1/3/Defensive",
+					},
+					[71] = {
+						["scaleName"] = "Default",
+						["scaleID"] = "D/1/1/Default",
+					},
+					[72] = {
+						["scaleName"] = "Default",
+						["scaleID"] = "D/1/2/Default",
+					},
+				},
+				["addPrimaryStatToScore"] = false,
+				["showTooltipLegend"] = true,
+				["zonePowers"] = true,
+				["pvpPowers"] = false,
+				["addILvlToScore"] = false,
+				["relativeScore"] = false,
+				["rolePowersNoOffRolePowers"] = false,
+				["importingCanUpdate"] = true,
+				["tooltipScales"] = {
+				},
+				["onlyOwnClassCustoms"] = false,
+				["enableEssences"] = true,
+				["rolePowers"] = true,
+				["defensivePowers"] = true,
+				["enableTraits"] = true,
+				["scaleByAzeriteEmpowered"] = false,
+				["onlyOwnClassDefaults"] = true,
+				["outlineScores"] = true,
+				["professionPowers"] = false,
+				["showOnlyUpgrades"] = false,
+				["debug"] = false,
+				["preferBiSMarjor"] = true,
+			},
+		},
+	},
+}

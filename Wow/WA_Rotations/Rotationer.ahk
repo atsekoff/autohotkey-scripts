@@ -75,8 +75,8 @@ return
 
 RunRotation:
 	skillIndex := GetSkillIndex()
-	key := "Numpad" . skillIndex
-	; ToolTip, %key%, 555, 555
+	;key := "Numpad" . skillIndex
+	ToolTip, %key%, 555, 555
 	Send {%key%}
 	;ToolTip, %skillIndex%, 555, 555
 	

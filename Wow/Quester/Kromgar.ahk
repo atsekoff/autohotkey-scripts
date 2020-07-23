@@ -44,22 +44,22 @@ Run:
 	SendToAll("{F5}")
 	Sleep 1000
 	
-	Send {A Down}
-	Loop, 5
-	{
-		Send \;
-		Sleep 300
-	}
-	Send {A Up}
-	Sleep 100
-	
 	Send {D Down}
-	Loop, 5
+	Loop, 9
 	{
 		Send \;
-		Sleep 300
+		Sleep 200
 	}
 	Send {D Up}
+	Sleep 100
+	
+	Send {A Down}
+	Loop, 9
+	{
+		Send \;
+		Sleep 200
+	}
+	Send {A Up}
 	Sleep 100
 	
 	Send {F4}
@@ -68,7 +68,9 @@ Run:
 	Sleep 1000
 	
 	SendToAll("{F1}")
-	Sleep 1000
+	Sleep 500
+	SendToAll("{F1}")
+	Sleep 500
 	SendToAll("{F1}")
 	Sleep 1000
 	SendToAll("{F5}")
@@ -77,20 +79,19 @@ Run:
 	Sleep 1000
 	
 	Send {F3}
-	Sleep 1000
+	Sleep 500
 	Send {F2}
+	Sleep 500
 	
-	Sleep 14000
+	Sleep 14422
 	Send {Enter}
 	Sleep 7000
 	
 	
 	
 	
-	if(GetKeyState("CapsLock", "T"))
-	{
+	; if(GetKeyState("CapsLock", "T"))
+	; {
 		SetTimer, Run, -200
-		return
-		; ToolTip
-	}
+	; }
 Return
