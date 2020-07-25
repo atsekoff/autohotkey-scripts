@@ -1,9 +1,10 @@
 
 MADB = {
+	["noMMMW"] = false,
 	["autoShowNext"] = true,
 	["characters"] = {
 	},
-	["frameListRows"] = 18,
+	["alwaysShowNudger"] = false,
 	["tooltips"] = true,
 	["profiles"] = {
 		["default"] = {
@@ -12,4 +13,8 @@ MADB = {
 			},
 		},
 	},
+	["frameListRows"] = 18,
+	["noBags"] = false,
+	["playSound"] = false,
+	["closeGUIOnEscape"] = false,
 }

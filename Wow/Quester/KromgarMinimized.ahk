@@ -1,4 +1,5 @@
 ﻿global wowid
+global count := 0
 
 WinGet, wowid, List, ahk_exe wow.exe
 
@@ -32,7 +33,8 @@ return
 ; MAIN LOOP :
 
 Run:
-	ToolTip StarTED
+	count := count + 1
+	ToolTip count: %count%
 	Sleep 500
 	
 	SendToAll("{F1}")
@@ -82,6 +84,11 @@ Run:
 	Sleep 500
 	SendToAll("{F2}")
 	Sleep 500
+	
+	if(count = 100)
+	{
+		Reload
+	}
 	
 	Sleep 14422
 	SendToAll("{Enter}")
