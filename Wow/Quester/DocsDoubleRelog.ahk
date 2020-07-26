@@ -14,6 +14,7 @@ SendToAll(Key)
 	Return
 }
 
+
 ~CapsLock::
 	if(GetKeyState("CapsLock", "T"))
 	{
@@ -27,12 +28,43 @@ SendToAll(Key)
 return
 
 
-
+Vendor()
+{
+	SendToAll("{D down}")
+	Sleep 1500
+	SendToAll("{D up}")
+	SendToAll("{F11}")
+	SendToAll("{;}")
+	Sleep 500
+	SendToAll("{F12}")
+	Sleep 1000
+	SendToAll("{F12}")
+	Sleep 1000
+	SendToAll("{F12}")
+	Sleep 1000
+	SendToAll("{F12}")
+	Sleep 1000
+	SendToAll("{F12}")
+	Sleep 1000
+	SendToAll("{F12}")
+	Sleep 1000
+	SendToAll("{A down}")
+	Sleep 1500
+	SendToAll("{A up}")
+	
+	return
+}
 
 ; MAIN LOOP :
 
 Run:
 	count := count + 1
+	if(count = 20)
+	{
+		Vendor()
+		ToolTip, Vendoring
+		count := 0
+	}
 	ToolTip Turning in [count: %count%]
 	
 	Sleep 500
@@ -135,8 +167,6 @@ Run:
 	Sleep 500
 	SendToAll("{Enter}")
 	Sleep 7500
-	
-	
 	
 	
 	; if(GetKeyState("CapsLock", "T"))
