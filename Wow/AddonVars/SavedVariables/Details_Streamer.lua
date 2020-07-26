@@ -1,14 +1,25 @@
 
 Details_StreamerDB = {
 	["characters"] = {
-		["Prostmage - Ravencrest"] = "Wowkiller - Stormscale",
-		["Basstoon - Ravencrest"] = "Wowkiller - Stormscale",
-		["Pumple - Ravencrest"] = "Wowkiller - Stormscale",
-		["Koshiam - Stormscale"] = "Wowkiller - Stormscale",
+		["Goshku - Ravencrest"] = "Wowkiller - Stormscale",
+		["Buhle - Stormscale"] = "Wowkiller - Stormscale",
 		["Orcbestmmo - Draenor"] = "Wowkiller - Stormscale",
+		["Trorrior - Darkmoon Faire"] = "Wowkiller - Stormscale",
+		["Kankeraap - Ravencrest"] = "Wowkiller - Stormscale",
+		["Iiliput - Stormscale"] = "Wowkiller - Stormscale",
+		["Megahardorc - Stormscale"] = "Wowkiller - Stormscale",
+		["Basstoon - Ravencrest"] = "Wowkiller - Stormscale",
+		["Klyc - Ravencrest"] = "Wowkiller - Stormscale",
 		["Brumber - Ravencrest"] = "Wowkiller - Stormscale",
 		["Wowkiller - Stormscale"] = "Wowkiller - Stormscale",
-		["Goshku - Ravencrest"] = "Wowkiller - Stormscale",
+		["Fightlorged - Ravencrest"] = "Wowkiller - Stormscale",
+		["Zugwook - Stormscale"] = "Wowkiller - Stormscale",
+		["Dryid - Ravencrest"] = "Wowkiller - Stormscale",
+		["Koshiam - Stormscale"] = "Wowkiller - Stormscale",
+		["Prostmage - Ravencrest"] = "Wowkiller - Stormscale",
+		["Pumple - Ravencrest"] = "Wowkiller - Stormscale",
+		["Basstoon - Draenor"] = "Wowkiller - Stormscale",
+		["Loriar - Darkmoon Faire"] = "Wowkiller - Stormscale",
 	},
 	["profiles"] = {
 		["Wowkiller - Stormscale"] = {

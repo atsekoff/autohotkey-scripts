@@ -1,14 +1,25 @@
 
 Details_StreamerDB = {
 	["characters"] = {
-		["Prostmage - Ravencrest"] = "Wowkiller - Stormscale",
-		["Basstoon - Ravencrest"] = "Wowkiller - Stormscale",
-		["Pumple - Ravencrest"] = "Wowkiller - Stormscale",
-		["Koshiam - Stormscale"] = "Wowkiller - Stormscale",
+		["Goshku - Ravencrest"] = "Wowkiller - Stormscale",
+		["Buhle - Stormscale"] = "Wowkiller - Stormscale",
 		["Orcbestmmo - Draenor"] = "Wowkiller - Stormscale",
+		["Trorrior - Darkmoon Faire"] = "Wowkiller - Stormscale",
+		["Kankeraap - Ravencrest"] = "Wowkiller - Stormscale",
+		["Iiliput - Stormscale"] = "Wowkiller - Stormscale",
+		["Megahardorc - Stormscale"] = "Wowkiller - Stormscale",
+		["Basstoon - Ravencrest"] = "Wowkiller - Stormscale",
+		["Klyc - Ravencrest"] = "Wowkiller - Stormscale",
 		["Brumber - Ravencrest"] = "Wowkiller - Stormscale",
 		["Wowkiller - Stormscale"] = "Wowkiller - Stormscale",
-		["Goshku - Ravencrest"] = "Wowkiller - Stormscale",
+		["Fightlorged - Ravencrest"] = "Wowkiller - Stormscale",
+		["Zugwook - Stormscale"] = "Wowkiller - Stormscale",
+		["Loriar - Darkmoon Faire"] = "Wowkiller - Stormscale",
+		["Basstoon - Draenor"] = "Wowkiller - Stormscale",
+		["Pumple - Ravencrest"] = "Wowkiller - Stormscale",
+		["Prostmage - Ravencrest"] = "Wowkiller - Stormscale",
+		["Koshiam - Stormscale"] = "Wowkiller - Stormscale",
+		["Dryid - Ravencrest"] = "Wowkiller - Stormscale",
 	},
 	["profiles"] = {
 		["Wowkiller - Stormscale"] = {
@@ -41,7 +52,7 @@ Details_StreamerDB = {
 			["author"] = "Details! Team",
 			["enabled"] = false,
 			["arrow_size"] = 10,
-			["use_spark"] = true,
+			["y"] = 4.57763671875e-05,
 			["row_spacement"] = 21,
 			["main_frame_color"] = {
 				0, -- [1]
@@ -56,7 +67,6 @@ Details_StreamerDB = {
 				0.4, -- [4]
 			},
 			["arrow_texture"] = "Interface\\CHATFRAME\\ChatFrameExpandArrow",
-			["y"] = 4.57763671875e-05,
 			["per_second"] = {
 				["enabled"] = false,
 				["point"] = "CENTER",
@@ -68,9 +78,10 @@ Details_StreamerDB = {
 				["update_speed"] = 0.05,
 				["size"] = 32,
 			},
+			["font_size"] = 10,
 			["x"] = 0,
 			["font_face"] = "Friz Quadrata TT",
-			["font_size"] = 10,
+			["use_spark"] = true,
 			["main_frame_strata"] = "LOW",
 			["point"] = "CENTER",
 			["row_height"] = 20,
