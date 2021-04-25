@@ -8,8 +8,11 @@ class AutoHotInterception {
 		dllName := "interception.dll"
 		dllFile := A_LineFile "\..\" bitness "\" dllName
 		if (!FileExist(dllFile)){
-			MsgBox % "Unable to find lib\" bitness "\" dllName ", exiting...`nYou should extract both x86 and x64 folders from the library folder in interception.zip into AHI's lib folder."
-			ExitApp
+			dllFile := A_LineFile "\..\..\" bitness "\" dllName
+			if(!FileExist(dllFile)){
+				MsgBox % "Unable to find lib\" bitness "\" dllName ", exiting...`nYou should extract both x86 and x64 folders from the library folder in interception.zip into AHI's lib folder."
+				ExitApp
+			}
 		}
 
 		hModule := DllCall("LoadLibrary", "Str", dllFile, "Ptr")
@@ -23,6 +26,7 @@ class AutoHotInterception {
 
 		dllName := "AutoHotInterception.dll"
 		dllFile := A_LineFile "\..\" dllName
+		MsgBox %dllFile%
 		hintMessage := "Try right-clicking lib\" dllName ", select Properties, and if there is an 'Unblock' checkbox, tick it`nAlternatively, running Unblocker.ps1 in the lib folder (ideally as admin) can do this for you."
 		if (!FileExist(dllFile)){
 			MsgBox % "Unable to find lib\" dllName ", exiting..."
