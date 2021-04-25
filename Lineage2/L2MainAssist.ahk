@@ -2,15 +2,17 @@
 ;#Persistent
 #MaxThreadsPerHotkey, 2
 
-#include <AutoHotInterception>
-#Include Lib\Utils.ahk
-#include Lib\HWIDs.ahk
-#include Lib\L2Target.ahk
+#include ..\Lib\AutoHotInterception.ahk
+#Include ..\Utils\Utils.ahk
+#include ..\Lib\HWIDs.ahk
+#include L2Target.ahk
+
 
 global AHI := new AutoHotInterception()
 global KB := AHI.GetKeyboardIDFromHandle(BATMAN_KB_ID)
 global MS := AHI.GetMouseIDFromHandle(BATMAN_MS_ID)
 global CM := AHI.CreateContextManager(KB)
+
 SendKey(key)
 {
     sc := GetKeySC(key)
@@ -34,9 +36,11 @@ global KEY_BUFF:="F6"
 global target := new L2Target
 ;;;;;;;;;;;;;;;;;;;;;;;;; FUNCTIONS
 
-Chill()
+Chill(min, max)
 {
-	Sleep 200
+	Random, sleepTime , min, max
+	tooltip %sleepTime%
+	Sleep sleepTime
 	return
 }
 
@@ -73,34 +77,34 @@ Farm:
 	{
 		shouldPick:=True
 		ToolTip, attacking, 500, 1000
-		SendKey("F6")
-		Sleep 1000
+		SendKey(KEY_BUFF)
+		Chill(500, 1500)
 		SendKey(KEY_SKILL)
-		Sleep 1000
+		Chill(500, 1500)
 		SendKey(KEY_ATTACK)
 	}
 	else if(alive==0)
 	{
 		ToolTip, nexttargeting, 500, 1000
 		SendKey(KEY_NEXT)
-		Chill()
+		Chill(50, 200)
 
-		if(shouldPick)
-		{
-			Loop,10
-			{
-				ToolTip, picking, 500, 1000
-				SendKey(KEY_PICK)
-				Sleep 200
-			}
-			shouldPick:=false
-		}
+		; if(shouldpick)
+		; {
+			; loop,10
+			; {
+				; tooltip, picking, 500, 1000
+				; sendkey(key_pick)
+				; sleep 200
+			; }
+			; shouldpick:=false
+		; }
 	}
 	else
 	{
 		ToolTip, targeting, 500, 1000
 		SendKey(KEY_TARGET)
-		Chill()
+		Chill(50, 200)
 	}
 
 	if(GetKeyState("CapsLock", "T"))

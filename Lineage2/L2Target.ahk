@@ -1,4 +1,4 @@
-﻿#Include %A_LineFile%\..\Utils.ahk
+﻿#Include ..\Utils\Utils.ahk
 
 Class L2Target
 {
