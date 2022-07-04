@@ -1,17 +1,31 @@
-﻿#NoEnv ; Recommended for performance and compatibility with future AutoHotkey releases.
-; #Warn  ; Enable warnings to assist with detecting common errors.
-SendMode Input ; Recommended for new scripts due to its superior speed and reliability.
+﻿If not A_IsAdmin ;force the script to run as admin
+{
+  Run *RunAs "%A_ScriptFullPath%"
+  ExitApp
+}
+#NoEnv ; Recommended for performance and compatibility with future AutoHotkey releases.
+; #Warn ; Enable warnings to assist with detecting common errors.
+SendMode, Input ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir% ; Ensures a consistent starting directory.
+DetectHiddenWindows, On ;this for background sending
 #SingleInstance, force
 
 #Include ..\Lib\VA-2.3\VA.ahk
 ;#Include D:\stuffz\AHK_Lib\VA-2.3\VA.ahk
+
+global button_fish = "0"
+global button_clean = "9"
+global button_buff = "8"
+global button_quit = "7"
+global button_GUI = ";"
+global button_allBags = "i"
 
 global c := 0
 global threshold := 20
 global timeToFishMs := 60 * 60 * 1000 * 5
 global buffDuration := 60 * 1000 * 10
 global fishingDuration := 20000 ;20 sec
+global title := "World of Warcraft"
 
 ; set the color to search for
 ^i::
@@ -44,31 +58,29 @@ Fish()
   {
     if (A_TickCount - startTime > timeToFishMs)
     {
-      Send 3 ;logout button
+      SendButton(button_quit) ;logout button
       return
     }
     if (A_TickCount - buffTime > buffDuration + 1000)
     {
       ;Send 6	;buff button
       ;Send 5	;fishing rod button
-      Send 7 	;macro to buff fishing rod and click Yes to replace
+      SendButton(button_buff) 	;macro to buff fishing rod and click Yes to replace
       Sleep 6000
       buffTime := A_TickCount
     }
-    Send i
-    Sleep 500
-    Send 9	;clean inv macro
+    SendButton(button_clean)	;clean inv macro
     Sleep 100
-    Send 0	;fishing macro
+    SendButton(button_fish)	;fishing macro
     Sleep 2000
-    CheckVolume(threshold)
-    Send {Alt Down}z{Alt Up}
-    Sleep 300
-    SearchBob(c, 20, x, y)
-    Sleep 300
-    Send {Alt Down}z{Alt Up}
-    Click %x% %y% Right ; loot
-    Sleep 1000
+    if TryFindBob(c, 20, x, y)
+    {
+      SendButton(button_allBags)
+      Sleep 500
+      CheckVolume(threshold)
+      RightClick(x, y) ; loot
+      Sleep 1000
+    }
   }
 
   ToolTip
@@ -76,20 +88,27 @@ return
 }
 
 ; search the screen for that pixel color
-SearchBob(color, delta, ByRef aX, ByRef aY)
+TryFindBob(color, delta, ByRef aX, ByRef aY)
 {
+  SendButton(button_GUI)
+  Sleep 300
+
+  result := true
   ; cut off a portion of the screen sides horizontally
-  pixelsToCut := A_ScreenWidth * 0.2
+  pixelsToCut := A_ScreenWidth * 0.15
   PixelSearch, aX, aY, pixelsToCut, 0, A_ScreenWidth - pixelsToCut, A_ScreenHeight, %color%, %delta%, Fast
   if ErrorLevel
   {
     ToolTip, Cant find %color% in the region, 200, 200
+    result := False
   }
   else
   {
-    ToolTip, A color %color% within 3 shades of variation was found at X%aX% Y%aY%.,222,222
+    ToolTip, A color %color% within 3 shades of variation was found at X%aX% Y%aY%.,%aX%,%aY%
   }
-return	
+
+  SendButton(button_GUI)
+return result
 }
 
 CheckVolume(thresh)
@@ -136,5 +155,21 @@ CheckVolume(thresh)
 
     Sleep, %devicePeriod%
   }
+
+return
+}
+
+SendButton(button)
+{
+  ControlSend,,%button%, %title%
+}
+
+RightClick(x, y) 
+{ 
+  ;https://www.autohotkey.com/docs/misc/SendMessageList.htm
+  lParam := x & 0xFFFF | y << 16
+  PostMessage, 0x200, 0, %lparam%,, %title% 
+  PostMessage, 0x204, 0, %lparam%,, %title% 
+  PostMessage, 0x205, 0, %lparam%,, %title% 
 return
 }
