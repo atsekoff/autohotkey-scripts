@@ -3,15 +3,17 @@
   Run *RunAs "%A_ScriptFullPath%"
   ExitApp
 }
+#SingleInstance, force
 #NoEnv ; Recommended for performance and compatibility with future AutoHotkey releases.
 ; #Warn ; Enable warnings to assist with detecting common errors.
 SendMode, Input ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir% ; Ensures a consistent starting directory.
 DetectHiddenWindows, On ;this for background sending
-#SingleInstance, force
+CoordMode, ToolTip, Screen
+CoordMode, Pixel, Screen
+CoordMode, Mouse, Screen
 
 #Include ..\Lib\VA-2.3\VA.ahk
-;#Include D:\stuffz\AHK_Lib\VA-2.3\VA.ahk
 
 global button_fish = "0"
 global button_clean = "9"
@@ -22,10 +24,12 @@ global button_allBags = "i"
 
 global c := 0
 global threshold := 20
-global timeToFishMs := 60 * 60 * 1000 * 5
+global quitTimer := 60 * 60 * 1000 * 5
 global buffDuration := 60 * 1000 * 10
-global fishingDuration := 20000 ;20 sec
+global castDuration := 20000 ;20 sec
 global title := "World of Warcraft"
+global ToolTipX := A_ScreenWidth // 2
+global ToolTipY := A_ScreenHeight * 0.6
 
 ; set the color to search for
 ^i::
@@ -33,14 +37,14 @@ global title := "World of Warcraft"
   xColor := MouseX
   yColor := MouseY
   PixelGetColor, color, %xColor%, %yColor%
-  ToolTip, Mouse Pos: %MouseX% : %MouseY% `nThe color at %xColor% %yColor% is %color% ,222,222
+  ToolTip, Mouse Pos: %MouseX% : %MouseY% `nThe color at %xColor% %yColor% is %color%, %MouseX%, %MouseY%
   c:= color
 return
 
 ; test the volume
 ^p::
-  CheckVolume(15)
-  ToolTip, DONE, 0,0
+  CheckVolume(15, 1000)
+  ToolTip, DONE, %ToolTipX%, %ToolTipY%
 return
 
 ~NumLock::
@@ -56,7 +60,7 @@ Fish()
 
   while(GetKeyState("NumLock", "T"))
   {
-    if (A_TickCount - startTime > timeToFishMs)
+    if (A_TickCount - startTime > quitTimer)
     {
       SendButton(button_quit) ;logout button
       return
@@ -76,10 +80,12 @@ Fish()
     if TryFindBob(c, 20, x, y)
     {
       SendButton(button_allBags)
-      Sleep 500
-      CheckVolume(threshold)
-      RightClick(x, y) ; loot
       Sleep 1000
+      if CheckVolume(threshold, castDuration)
+      {
+        RightClick(x, y) ; loot
+        Sleep 1000
+      }
     }
   }
 
@@ -99,7 +105,7 @@ TryFindBob(color, delta, ByRef aX, ByRef aY)
   PixelSearch, aX, aY, pixelsToCut, 0, A_ScreenWidth - pixelsToCut, A_ScreenHeight, %color%, %delta%, Fast
   if ErrorLevel
   {
-    ToolTip, Cant find %color% in the region, 200, 200
+    ToolTip, Cant find %color% in the region, %ToolTipX%, %ToolTipY%
     result := False
   }
   else
@@ -111,9 +117,9 @@ TryFindBob(color, delta, ByRef aX, ByRef aY)
 return result
 }
 
-CheckVolume(thresh)
+CheckVolume(thresh, timeout)
 {
-  #SingleInstance, Force
+  result := false
   MeterLength = 30
   peak := 0
   minAllowedPeak := 10
@@ -124,11 +130,11 @@ CheckVolume(thresh)
   ;  period and made available during the subsequent device period."
   VA_GetDevicePeriod("capture", devicePeriod)
 
-  While(GetKeyState("NumLock", "T"))
+  While(GetKeyState("NumLock", "T") and !result)
   {
     elapsedTime := A_TickCount - startTime
 
-    if(A_TickCount - startTime > fishingDuration)
+    if(A_TickCount - startTime > timeout)
     {
       if(peak > minAllowedPeak)
       {
@@ -141,22 +147,20 @@ CheckVolume(thresh)
     VA_IAudioMeterInformation_GetPeakValue(audioMeter, peakValue)
     current:= peakValue * 100
 
-    ToolTip, current: %current% `n highest: %peak% `n required: %thresh% `n elapsed time: %elapsedTime%, 222,222
-
     if(current > thresh)
-    {
-      break
-    }
+      result := True ;we got volume peak so we are done
 
     if(current > peak)
     {
       peak := current
     }
 
+    ToolTip,% "Cur: " . current . "`nTop: " . peak . "`nReq: " . thresh . "`nTime: " . elapsedTime//1000, %ToolTipX%, %ToolTipY%
+
     Sleep, %devicePeriod%
   }
 
-return
+return result
 }
 
 SendButton(button)
@@ -166,6 +170,8 @@ SendButton(button)
 
 RightClick(x, y) 
 { 
+  WinActivate, %title%
+  ToolTip, Looting at %x% %y%, %x%, %y%
   ;https://www.autohotkey.com/docs/misc/SendMessageList.htm
   lParam := x & 0xFFFF | y << 16
   PostMessage, 0x200, 0, %lparam%,, %title% 
