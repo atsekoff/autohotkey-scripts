@@ -4,6 +4,7 @@
   ExitApp
 }
 #SingleInstance, force
+#InstallMouseHook
 #NoEnv ; Recommended for performance and compatibility with future AutoHotkey releases.
 ; #Warn ; Enable warnings to assist with detecting common errors.
 SendMode, Input ; Recommended for new scripts due to its superior speed and reliability.
@@ -170,12 +171,16 @@ SendButton(button)
 
 RightClick(x, y) 
 { 
+  WinGetActiveTitle, activeTitle
   WinActivate, %title%
   ToolTip, Looting at %x% %y%, %x%, %y%
   ;https://www.autohotkey.com/docs/misc/SendMessageList.htm
-  lParam := x & 0xFFFF | y << 16
-  PostMessage, 0x200, 0, %lparam%,, %title% 
-  PostMessage, 0x204, 0, %lparam%,, %title% 
-  PostMessage, 0x205, 0, %lparam%,, %title% 
+  lParam := x & 0xFFFF | (y & 0xFFFF) << 16
+  WinActivate, %title%
+  PostMessage, 0x200, 0, lParam,, %title% 
+  PostMessage, 0x204, 1,,, %title% 
+  PostMessage, 0x205, 0,,, %title%
+
+  WinActivate, %activeTitle%
 return
 }
