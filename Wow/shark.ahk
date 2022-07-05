@@ -103,7 +103,10 @@ TryFindBob(color, delta, ByRef aX, ByRef aY)
   result := true
   ; cut off a portion of the screen sides horizontally
   pixelsToCut := A_ScreenWidth * 0.15
+  WinGetActiveTitle, activeTitle
+  WinActivate, %title%
   PixelSearch, aX, aY, pixelsToCut, 0, A_ScreenWidth - pixelsToCut, A_ScreenHeight, %color%, %delta%, Fast
+  WinActivate, %activeTitle%
   if ErrorLevel
   {
     ToolTip, Cant find %color% in the region, %ToolTipX%, %ToolTipY%
