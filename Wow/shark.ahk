@@ -123,7 +123,7 @@ CheckVolume(thresh, timeout)
   result := false
   MeterLength = 30
   peak := 0
-  minAllowedPeak := 10
+  minAllowedPeak := 12
   startTime := A_TickCount
   audioMeter := VA_GetAudioMeter()
 
