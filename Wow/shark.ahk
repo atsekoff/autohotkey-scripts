@@ -23,14 +23,18 @@ global button_quit = "7"
 global button_GUI = ";"
 global button_allBags = "i"
 
-global c := 0
+global c := 0x090C45 ; the redish leaf of the bob
 global threshold := 20
 global quitTimer := 60 * 60 * 1000 * 5
 global buffDuration := 60 * 1000 * 10
-global castDuration := 20000 ;20 sec
+global castDuration := 18000 ;20 sec cast - the 2sec wait after casting due to sound
 global title := "World of Warcraft"
 global ToolTipX := A_ScreenWidth // 2
 global ToolTipY := A_ScreenHeight * 0.6
+global searchRectX1 := A_ScreenWidth * 0.2 ; ignores the left most of the screen
+global searchRectY1 := 0 ; starts at the very top of the screen
+global searchRectX2 := A_ScreenWidth * 0.8 ; ignores the right most of the screen
+global searchRectY2 := A_ScreenHeight * 0.7 ; ignores the bottom 30% of the screen
 
 ; set the color to search for
 ^i::
@@ -40,6 +44,16 @@ global ToolTipY := A_ScreenHeight * 0.6
   PixelGetColor, color, %xColor%, %yColor%
   ToolTip, Mouse Pos: %MouseX% : %MouseY% `nThe color at %xColor% %yColor% is %color%, %MouseX%, %MouseY%
   c:= color
+return
+
+^o::
+  MouseGetPos, searchRectX1, searchRectY1
+  ToolTip, Search rectangle coords are now |%searchRectX1% %searchRectY1%| : |%searchRectX2% %searchRectY2%|, %searchRectX1%, %searchRectY1%
+return
+
+!o::
+  MouseGetPos, searchRectX2, searchRectY2
+  ToolTip, Search rectangle coords are now |%searchRectX1% %searchRectY1%| : |%searchRectX2% %searchRectY2%|, %searchRectX2%, %searchRectY2%
 return
 
 ; test the volume
@@ -54,8 +68,8 @@ return
 
 Fish()
 {
-  x := 500
-  y := 500
+  bobX := 500
+  bobY := 500
   startTime := A_TickCount
   buffTime := A_TickCount
 
@@ -78,14 +92,14 @@ Fish()
     Sleep 100
     SendButton(button_fish)	;fishing macro
     Sleep 2000
-    if TryFindBob(c, 20, x, y)
+    if TryFindBob(c, 20, bobX, bobY)
     {
       SendButton(button_allBags)
       Sleep 1000
       if CheckVolume(threshold, castDuration)
       {
-        RightClick(x, y) ; loot
-        Sleep 1000
+        RightClick(bobX, bobY) ; loot
+        Sleep 100
       }
     }
   }
@@ -97,15 +111,13 @@ return
 ; search the screen for that pixel color
 TryFindBob(color, delta, ByRef aX, ByRef aY)
 {
-  SendButton(button_GUI)
-  Sleep 300
-
   result := true
-  ; cut off a portion of the screen sides horizontally
-  pixelsToCut := A_ScreenWidth * 0.15
+  SendButton(button_GUI)
+
   WinGetActiveTitle, activeTitle
   WinActivate, %title%
-  PixelSearch, aX, aY, pixelsToCut, 0, A_ScreenWidth - pixelsToCut, A_ScreenHeight, %color%, %delta%, Fast
+
+  PixelSearch, aX, aY, searchRectX1, searchRectY1, searchRectX2, searchRectY2, %color%, %delta%, Fast
   WinActivate, %activeTitle%
   if ErrorLevel
   {
