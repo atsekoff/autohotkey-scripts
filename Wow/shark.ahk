@@ -99,7 +99,7 @@ Fish()
       if CheckVolume(threshold, castDuration)
       {
         RightClick(bobX, bobY) ; loot
-        Sleep 100
+        Sleep 1000
       }
     }
   }
