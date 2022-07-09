@@ -98,7 +98,7 @@ Fish()
       Sleep 1000
       if CheckVolume(threshold, castDuration)
       {
-        RightClick(bobX, bobY) ; loot
+        Loot(bobX, bobY) ; loot
         Sleep 1000
       }
     }
@@ -179,23 +179,41 @@ CheckVolume(thresh, timeout)
 return result
 }
 
+Loot(x, y)
+{
+  ToolTip, Looting at %x% %y%, %x%, %y%
+  WinGetActiveTitle, activeTitle
+  WinActivate, %title%
+  MoveMouse(x, y)
+  RightClick(x, y)
+  WinActivate, %activeTitle%
+Return
+}
+
 SendButton(button)
 {
   ControlSend,,%button%, %title%
 }
 
-RightClick(x, y) 
-{ 
-  WinGetActiveTitle, activeTitle
-  WinActivate, %title%
-  ToolTip, Looting at %x% %y%, %x%, %y%
+MoveMouse(x, y)
+{
   ;https://www.autohotkey.com/docs/misc/SendMessageList.htm
   lParam := x & 0xFFFF | (y & 0xFFFF) << 16
-  WinActivate, %title%
   PostMessage, 0x200, 0, lParam,, %title% 
+return
+}
+
+LeftClick(x, y)
+{
+  PostMessage, 0x201, 1,,, %title% 
+  PostMessage, 0x202, 0,,, %title%
+return
+}
+
+RightClick(x, y) 
+{ 
+  ;https://www.autohotkey.com/docs/misc/SendMessageList.htm
   PostMessage, 0x204, 1,,, %title% 
   PostMessage, 0x205, 0,,, %title%
-
-  WinActivate, %activeTitle%
 return
 }
