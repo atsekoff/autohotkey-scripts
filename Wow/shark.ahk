@@ -25,7 +25,9 @@ global button_allBags = "i"
 
 global c := 0x090C45 ; the redish leaf of the bob
 global threshold := 20
-global quitTimer := 60 * 60 * 1000 * 5
+global quitHoursMax := 10
+global quitHours := 5
+global quitTimer := 60 * 60 * 1000 * quitHours
 global buffDuration := 60 * 1000 * 10
 global castDuration := 18000 ;20 sec cast - the 2sec wait after casting due to sound
 global title := "World of Warcraft"
@@ -58,8 +60,12 @@ return
 
 ; test the volume
 ^p::
-  CheckVolume(15, 1000)
-  ToolTip, DONE, %ToolTipX%, %ToolTipY%
+  quitHours := quitHours + 1
+  if quitHours > %quitHoursMax%
+    quitHours := 1
+
+  quitTimer := 60 * 60 * 1000 * quitHours
+  ToolTip, Quitting in %quitHours% hours, %ToolTipX%, %ToolTipY%
 return
 
 ~NumLock::
