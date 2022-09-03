@@ -29,7 +29,7 @@ global quitHoursMax := 10
 global quitHours := 5
 global quitTimer := 60 * 60 * 1000 * quitHours
 global buffDuration := 60 * 1000 * 10
-global castDuration := 18000 ;20 sec cast - the 2sec wait after casting due to sound
+global castDuration := 13000 ;15(wotlk) sec cast - the 2sec wait after casting due to sound
 global title := "World of Warcraft"
 global ToolTipX := A_ScreenWidth // 2
 global ToolTipY := A_ScreenHeight * 0.6
@@ -38,6 +38,7 @@ global searchRectY1 := 0 ; starts at the very top of the screen
 global searchRectX2 := A_ScreenWidth * 0.8 ; ignores the right most of the screen
 global searchRectY2 := A_ScreenHeight * 0.7 ; ignores the bottom 30% of the screen
 
+MsgBox, fishing = 0`nclean=9`nbuff=8`nquit=7`nhideUI=semicolon`nopenbags=i`nctrlO=TopLeftCorner`naltO=botRightCorner`nctrl+I=searchColor`nctrl+P=timer`nNumLock=Start
 ; set the color to search for
 ^i::
   MouseGetPos, MouseX, MouseY
