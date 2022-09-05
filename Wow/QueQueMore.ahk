@@ -4,29 +4,30 @@ SendMode Input ; Recommended for new scripts due to its superior speed and relia
 SetWorkingDir %A_ScriptDir% ; Ensures a consistent starting directory.
 #SingleInstance, Force
 
-global relogMinutes = 5
+global relogMinutes = 3
+global tooltipX = A_ScreenWidth/2
+global tooltipY = A_ScreenHeight*0.20
 
 global wowid
 WinGet, wowid, List, World of Warcraft
 
-MsgBox, , Auto-relog to avoid queue, Create a macro '/logout' and put it on keybind '9'`nStart/Pause with NumLock, 15
+ToolTip, Create a macro '/logout' and put it on keybind '9'`nStart/Pause with Ctrl+F12, tooltipX, tooltipY
 
 Pause
 
 while(True)
 {
-  ToolTip Relogging every %relogMinutes% minutes , A_ScreenWidth/2, A_ScreenHeight*0.15
-  Loop,5
-  {
-    SendToAll("{9}")
-    Sleep 1000
-  }
+  ToolTip Logging out... , tooltipX, tooltipY
+  Sleep 1000
+  SendToAll("{9}")
+  Sleep 1000
 
+  ToolTip Waiting %relogMinutes% minutes to relog , tooltipX, tooltipY
   relogTime := relogMinutes * 60 * 1000
   Sleep relogTime
 
+  ToolTip Relogging..., tooltipX, tooltipY
   SendToAll("{Enter}")
-
   Sleep 10000
 }
 
@@ -42,11 +43,12 @@ SendToAll(Key)
 }
 
 #If, A_IsPaused
-  ~NumLock::
+  ^F12::
+  ToolTip, Resuming auto relog..., tooltipX, tooltipY
   Pause
 Return
 #If
-~NumLock::
+^F12::
 ToolTip
-Pause
+Reload
 Return
