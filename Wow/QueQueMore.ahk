@@ -4,7 +4,7 @@ SendMode Input ; Recommended for new scripts due to its superior speed and relia
 SetWorkingDir %A_ScriptDir% ; Ensures a consistent starting directory.
 #SingleInstance, Force
 
-global relogMinutes = 3
+global relogMinutes = 5
 global tooltipX = A_ScreenWidth/2
 global tooltipY = A_ScreenHeight*0.20
 
