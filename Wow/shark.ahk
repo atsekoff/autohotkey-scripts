@@ -120,12 +120,7 @@ TryFindBob(color, delta, ByRef aX, ByRef aY)
 {
   result := true
   SendButton(button_GUI)
-
-  WinGetActiveTitle, activeTitle
-  WinActivate, %title%
-
   PixelSearch, aX, aY, searchRectX1, searchRectY1, searchRectX2, searchRectY2, %color%, %delta%, Fast
-  WinActivate, %activeTitle%
   if ErrorLevel
   {
     ToolTip, Cant find %color% in the region, %ToolTipX%, %ToolTipY%
