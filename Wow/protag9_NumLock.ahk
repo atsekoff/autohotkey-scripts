@@ -19,11 +19,12 @@ SendToAll(Key)
 }
 
 ~NumLock::
-  ToolTip Spamming 9, 500, 500
-  while(GetKeyState("NumLock", "T"))
+  ToolTip Spamming 9 and dot for interact with target, 500, 500
+    while(GetKeyState("NumLock", "T"))
   {
     Random, zzz, 25, 111
     SendToAll("{9}")
+    SendToAll("{.}")
     sleep zzz
   }
   Reload
