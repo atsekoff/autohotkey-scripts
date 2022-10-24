@@ -24,7 +24,7 @@ global button_GUI = ";"
 global button_allBags = "i"
 
 global c := 0x090C45 ; the redish leaf of the bob
-global threshold := 20
+global threshold := 45 ; threshold to use with the custom fishing sounds
 global quitHoursMax := 10
 global quitHours := 5
 global quitTimer := 60 * 60 * 1000 * quitHours
