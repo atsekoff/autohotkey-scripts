@@ -9,6 +9,7 @@ global SKILL_COUNT := 9
 global POS_X := 2480
 global POS_Y := 500
 global SKILL_COLOR := 0x000000
+global IS_ACTIVE := false
 
 GetPos()
 {
@@ -57,20 +58,24 @@ return
   GetPos()
 return
 
-*~NumLock::
-  if(GetKeyState("NumLock", "T"))
-  {
-    SetTimer, RunRotation, -%CHECK_RATE_MS%
-  }
-return
+!`::
+  IS_ACTIVE := not IS_ACTIVE
+  SetTimer, RunRotation, -%CHECK_RATE_MS%
+Return
 
-RunRotation:
+Rotate()
+{
   skillIndex := GetSkillIndex()
   key := "Numpad" . skillIndex
   Send {Blind}{%key%}
 
-  if(GetKeyState("NumLock", "T"))
+  Return
+}
+
+RunRotation:
+  if(IS_ACTIVE)
   {
+    Rotate()
     SetTimer, RunRotation, -%CHECK_RATE_MS%
   }
   Else
